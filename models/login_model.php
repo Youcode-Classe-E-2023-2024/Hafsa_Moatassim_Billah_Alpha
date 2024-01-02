@@ -6,11 +6,11 @@ if(isset($_POST['submit'])){
     $User = User::login($email, $password);
     if ($User !== false){
         $_SESSION['x'] = 'logout';
-        header('location: index.php?page=rooms');
+        header('location: index.php?page=');
         $_SESSION['c'] = $User;
     } else {
         header('location: index.php?page=login');
-        echo 'psw 4alt ';
+        echo 'incorrect password';
     }
 }
 
