@@ -42,12 +42,14 @@ if(isset($_POST['reset-request-submit'])){
             $message .= '<p>Here is your password reset link: </br>';
             $message .= '<a href="' . $url . '">' . $url . '</a></p>';
 
-            $headers = "From: XENO <youcode270@gmail.com>";
-            $headers .="";
+            $headers = "From: XENO <youcode270@gmail.com>\r\n";
+            $headers .= "Reply-To: noreply@gmail.com \r\n";
+            $headers .= "Contenr-type: text/html \r\n";
 
         }
-        // else{
-        //  header("location:index.php?page=home");
-        // }
+         
+        else{
+         header("location:index.php?page=home");
+        }
 
 ?>
