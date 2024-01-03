@@ -6,12 +6,9 @@ if(isset($_POST['reset-request-submit'])){
     $url = "http://localhost/Hafsa_Moatassim_Billah_Alpha/index.php?page=newpassword&&selector=" . $selector . "&validator=" . bin2hex($token);
 
     $expires = date("U") + 1800;
-    
-
 
     $userEmail = $_POST['email'];
     
-
     $sql = "DELETE FROM pwdReset WHERE pwdResetEmail=?";
         $stmt = mysqli_stmt_init($db);
         if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -34,22 +31,15 @@ if(isset($_POST['reset-request-submit'])){
             }
 
             mysqli_stmt_close($stmt);
-            
 
-            $to = $userEmail;
-            $subject = "Reset your password";
-            $message = '<p>We receive a password reset request. The link to reset your password is below if you did not make this request, you can ignore this email.</p>';
-            $message .= '<p>Here is your password reset link: </br>';
-            $message .= '<a href="' . $url . '">' . $url . '</a></p>';
-
-            $headers = "From: XENO <youcode270@gmail.com>\r\n";
-            $headers .= "Reply-To: noreply@gmail.com \r\n";
-            $headers .= "Contenr-type: text/html \r\n";
-
+            $mail = new MailSender();
+            $mail->Send($userEmail, $url);
         }
-         
-        else{
-         header("location:index.php?page=home");
-        }
+
+        // else{
+        //  header("location:index.php?page=home");
+        // }
+
+
 
 ?>
