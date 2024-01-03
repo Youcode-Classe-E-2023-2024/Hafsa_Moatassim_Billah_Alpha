@@ -214,3 +214,6 @@ h1 {
         -o-transform: scale(1);
     }
 }
+    .back{
+        background-image: url("../image/bg.jpeg");
+    }
