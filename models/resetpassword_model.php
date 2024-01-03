@@ -7,8 +7,11 @@ if(isset($_POST['reset-request-submit'])){
 
     $expires = date("U") + 1800;
     
-    extract($_POST);
+
+
+    $userEmail = $_POST['email'];
     
+
     $sql = "DELETE FROM pwdReset WHERE pwdResetEmail=?";
         $stmt = mysqli_stmt_init($db);
         if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -27,11 +30,11 @@ if(isset($_POST['reset-request-submit'])){
         }else{
             $hashedToken = password_hash($token, PASSWORD_DEFAULT);
             mysqli_stmt_bind_param($stmt, "ssss", $userEmail ,$selector, $hashedToken, $expires);
-            mysqli_stmt_execute($stmt); 
+            mysqli_stmt_execute($stmt);
             }
 
             mysqli_stmt_close($stmt);
-            mysqli_close();
+            
 
             $to = $userEmail;
             $subject = "Reset your password";
@@ -42,9 +45,9 @@ if(isset($_POST['reset-request-submit'])){
             $headers = "From: XENO <youcode270@gmail.com>";
             $headers .="";
 
-            
         }
         // else{
         //  header("location:index.php?page=home");
         // }
+
 ?>
