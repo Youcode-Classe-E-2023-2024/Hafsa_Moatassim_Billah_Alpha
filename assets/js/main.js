@@ -1,4 +1,3 @@
-
 const themes = [
     {
         background: "#1A1A2E",
