@@ -35,7 +35,7 @@ if(isset($_POST['reset-request-submit'])){
             $mail = new MailSender();
             $mail->Send($userEmail, $url);
         }
-
+        
         // else{
         //  header("location:index.php?page=home");
         // }
