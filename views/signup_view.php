@@ -23,12 +23,9 @@
                     <label for="file_input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" >Upload file</label>
                     <input type="file" name="pp" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
 
-                  <div class="flex items-center justify-between">
-                      <a href="index.php?page=resetpassword" class="text-sm font-medium text-blue-600 hover:underline dark:text-primary-500">Forgot password?</a>
-                  </div>
                   <button name="submit" class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Don’t have an account yet? <a href="index.php?page=login" class="font-medium text-blue-600 hover:underline dark:text-primary-500">Sign up</a>
+                      Already have an account? <a href="index.php?page=login" class="font-medium text-blue-600 hover:underline dark:text-primary-500">Login</a>
                   </p>
               </form>
           </div>
