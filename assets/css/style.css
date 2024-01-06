@@ -216,4 +216,5 @@ h1 {
 }
     .back{
         background-image: url("../image/bg.jpeg");
+        background-repeat: no-repeat;
     }
