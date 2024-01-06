@@ -27,11 +27,11 @@ class User
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    function edit()
-    {
-        global $db;
-        return $db->query("UPDATE users SET email = '$this->email', username = '$this->username' WHERE users_id = '$this->id'");
-    }
+    // function edit()
+    // {
+    //     global $db;
+    //     return $db->query("UPDATE users SET email = '$this->email', username = '$this->username' WHERE users_id = '$this->id'");
+    // }
 
     public function setPassword($pwd)
     {
@@ -79,5 +79,13 @@ class User
             return false;
         }
 
+    }
+
+    public static function deleteUser($userId) {
+        global $db;
+
+        $query = "DELETE FROM users WHERE id = $userId";
+
+        return $db->query($query);
     }
 }
