@@ -4,9 +4,10 @@ if(isset($_POST['submit'])){
     $password = $_POST['password'];
 
     $User = User::login($email, $password);
+
     if ($User !== false){
         $_SESSION['x'] = 'logout';
-        header('location: index.php?page=');
+        header('location: index.php?page=produit');
         $_SESSION['c'] = $User;
     } else {
         header('location: index.php?page=login');
@@ -14,12 +15,12 @@ if(isset($_POST['submit'])){
     }
 }
 
-if (isset($_POST['logout'])) {
-    session_destroy();
+// if (isset($_POST['logout'])) {
+//     session_destroy();
 
-} else {
-//    echo 'failed';
-}
+// } else {
+// //    echo 'failed';
+// }
 
 
 ?>
