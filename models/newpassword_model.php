@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 if (isset($_GET['selector']) && isset($_GET['validator'])) {
     $selector = $_GET['selector'];
@@ -88,4 +88,4 @@ if (isset($_GET['selector']) && isset($_GET['validator'])) {
 } else {
     echo "Invalid request.";
 }
-?> -->
+?> 
