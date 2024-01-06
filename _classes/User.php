@@ -27,12 +27,6 @@ class User
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // function edit()
-    // {
-    //     global $db;
-    //     return $db->query("UPDATE users SET email = '$this->email', username = '$this->username' WHERE users_id = '$this->id'");
-    // }
-
     public function setPassword($pwd)
     {
         $this->password = password_hash($pwd, PASSWORD_DEFAULT);
@@ -81,11 +75,16 @@ class User
 
     }
 
-    public static function deleteUser($userId) {
+     public function updateUser($userId, $username, $email, $password, $file) {
         global $db;
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $query = "UPDATE users SET username = '$username', email = '$email', password = '$hashedPassword', file = '$file' WHERE id = $userId";
+        return $this->$db->query($query);
+     }
 
+     public static function deleteUser($userId) {
+        global $db;
         $query = "DELETE FROM users WHERE id = $userId";
-
         return $db->query($query);
     }
 }
