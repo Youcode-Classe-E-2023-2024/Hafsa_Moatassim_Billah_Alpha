@@ -7,18 +7,18 @@ class User
     public $email;
     private $password;
 
-    public function __construct($id){
-        global $db;
+    // public function __construct($id){
+    //     global $db;
 
-        $result = $db->query("SELECT * FROM users WHERE users_id = '$id'");
-        $user = $result->fetch_assoc();
+    //     $result = $this->$db->query("SELECT * FROM users WHERE users_id = '$id'");
+    //     $user = $result->fetch_assoc();
 
-        $this->id = $user['users_id'];
+    //     $this->id = $user['users_id'];
        
-        $this->username = $user['username']; 
-        $this->email = $user['email'];
-        $this->password = $user['password'];
-    }
+    //     $this->username = $user['username']; 
+    //     $this->email = $user['email'];
+    //     $this->password = $user['password'];
+    // }
 
     static function getAll()
     {
@@ -33,7 +33,7 @@ class User
     }
 
 
-    static function NewUser($username, $email, $password, $file){
+    public function NewUser($username, $email, $password, $file){
         global  $db;
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
