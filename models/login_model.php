@@ -15,12 +15,12 @@ if(isset($_POST['submit'])){
     }
 }
 
-// if (isset($_POST['logout'])) {
-//     session_destroy();
+if (isset($_POST['logout'])) {
+    session_destroy();
 
-// } else {
-// //    echo 'failed';
-// }
+} else {
+//    echo 'failed';
+}
 
 
 ?>
