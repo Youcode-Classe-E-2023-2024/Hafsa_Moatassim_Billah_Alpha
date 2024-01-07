@@ -75,16 +75,5 @@ class User
 
     }
 
-     public function updateUser($userId, $username, $email, $password, $file) {
-        global $db;
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "UPDATE users SET username = '$username', email = '$email', password = '$hashedPassword', file = '$file' WHERE id = $userId";
-        return $this->$db->query($query);
-     }
-
-     public static function deleteUser($userId) {
-        global $db;
-        $query = "DELETE FROM users WHERE id = $userId";
-        return $db->query($query);
-    }
+  
 }

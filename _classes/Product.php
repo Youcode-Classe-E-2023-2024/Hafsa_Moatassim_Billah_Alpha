@@ -27,15 +27,7 @@ class ProductCRUD {
         return $result->fetch_assoc();
     }
 
-    public function updateProduct($productId, $productName, $productDescription) {
-        $query = "UPDATE product SET productName = '$productName', productDescription = '$productDescription' WHERE productID = $productId";
-        return $this->db->query($query);
-    }
 
-    public function deleteProduct($productId) {
-        $query = "DELETE FROM product WHERE productID = $productId";
-        return $this->db->query($query);
-    }
 }
 
 ?>
