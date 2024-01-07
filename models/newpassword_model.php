@@ -4,9 +4,7 @@ if (isset($_GET['selector']) && isset($_GET['validator'])) {
     $selector = $_GET['selector'];
     $validator = $_GET['validator'];
 
-    // Require your database connection here
-    // $db = mysqli_connect("hostname", "username", "password", "database_name");
-
+    // Assuming $db is your database connection
     if (!$db) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -17,7 +15,7 @@ if (isset($_GET['selector']) && isset($_GET['validator'])) {
     $stmt = mysqli_stmt_init($db);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        echo "There was an error";
+        echo "There was an error in the first query preparation.";
         exit();
     } else {
         mysqli_stmt_bind_param($stmt, "si", $selector, $currentDate);
@@ -25,45 +23,41 @@ if (isset($_GET['selector']) && isset($_GET['validator'])) {
 
         $result = mysqli_stmt_get_result($stmt);
 
-        if (!$row = mysqli_fetch_assoc($result)) {
-            echo "You need to re-submit your reset request.";
-            exit();
-        } else {
-            $tokenBin = hex2bin($validator);
-            $tokenCheck = password_verify($tokenBin, $row['pwdResetToken']);
+        // Fetch the result inside the loop
+        if ($row = mysqli_fetch_assoc($result)) {
+            $tokenEmail = $row['pwdResetEmail'];
 
-            if (!$tokenCheck) {
-                echo "You need to re-submit your reset request.";
+            $sql = "SELECT * FROM users WHERE email=?";
+            $stmt = mysqli_stmt_init($db);
+
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                echo "There was an error in the second query preparation.";
                 exit();
             } else {
-                $tokenEmail = $row['pwdResetEmail'];
+                mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
+                mysqli_stmt_execute($stmt);
 
-                $sql = "SELECT * FROM users WHERE email=?";
-                $stmt = mysqli_stmt_init($db);
+                $result = mysqli_stmt_get_result($stmt);
 
-                if (!mysqli_stmt_prepare($stmt, $sql)) {
-                    echo "There was an error";
+                if (!$row = mysqli_fetch_assoc($result)) {
+                    echo "There was an error in fetching user data.";
                     exit();
                 } else {
-                    mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
-                    mysqli_stmt_execute($stmt);
+                   
+                        // Validate and sanitize user input
+                        $newPassword = $_POST['new_password'];
 
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if (!$row = mysqli_fetch_assoc($result)) {
-                        echo "There was an error.";
-                        exit();
-                    } else {
-                        $newPassword = password_hash("new_password", PASSWORD_DEFAULT);
+                        // Password hashing
+                        $hashedNewPassword = password_hash('zak', PASSWORD_DEFAULT);
 
                         $sql = "UPDATE users SET password=? WHERE email=?";
                         $stmt = mysqli_stmt_init($db);
 
                         if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "There was an error";
+                            echo "There was an error in the third query preparation.";
                             exit();
                         } else {
-                            mysqli_stmt_bind_param($stmt, "ss", $newPassword, $tokenEmail);
+                            mysqli_stmt_bind_param($stmt, "ss", $hashedNewPassword, $tokenEmail);
                             mysqli_stmt_execute($stmt);
 
                             // Delete the reset request from the pwdReset table
@@ -75,17 +69,20 @@ if (isset($_GET['selector']) && isset($_GET['validator'])) {
                                 mysqli_stmt_execute($stmt);
                                 echo "Your password has been reset successfully!";
                             } else {
-                                echo "There was an error.";
+                                echo "There was an error in the fourth query preparation.";
                             }
                         }
-                    }
+                    
                 }
             }
+        } else {
+            echo "You need to re-submit your reset request.";
+            exit();
         }
     }
 
     mysqli_close($db);
 } else {
-    echo "Invalid request.";
+    echo "Invalid request: Selector or Validator not set.";
 }
-?> 
+?>
